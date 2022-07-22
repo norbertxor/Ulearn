@@ -1,13 +1,6 @@
-﻿// В этом пространстве имен содержатся средства для работы с изображениями. 
-// Чтобы оно стало доступно, в проект был подключен Reference на сборку System.Drawing.dll
-using System.Drawing;
+﻿using System.Drawing;
+using System;
 
-namespace Fractals
-{
-	internal static class DragonFractalTask
-	{
-		public static void DrawDragonFractal(Pixels pixels, int iterationsCount, int seed)
-		{
 			/*
 			Начните с точки (1, 0)
 			Создайте генератор рандомных чисел с сидом seed
@@ -27,6 +20,29 @@ namespace Fractals
 			2. Нарисуйте текущую точку методом pixels.SetPixel(x, y)
 
 			*/
-		}
-	}
-}
+
+namespace Fractals {
+    internal static class DragonFractalTask {
+        public static void DrawDragonFractal(Pixels pixels, int iterationsCount, int seed) {
+            var random = new Random(seed);
+            double x = 1;
+            double y = 0;
+            for( int i = 1; i <= iterationsCount; i++ ) {
+                double x1 = 0;
+                double y1 = 0;
+                var nextNumber = random.Next(2);
+                if( nextNumber > 0 ) {
+                    x1 = ( x * Math.Cos(Math.PI / 4) - y * Math.Sin(Math.PI / 4) ) / Math.Sqrt(2);
+                    y1 = ( x * Math.Sin(Math.PI / 4) + y * Math.Cos(Math.PI / 4) ) / Math.Sqrt(2);
+                    }
+                else {
+                    x1 = ( x * Math.Cos(Math.PI * 3 / 4) - y * Math.Sin(Math.PI * 3 / 4) ) / Math.Sqrt(2) + 1;
+                    y1 = ( x * Math.Sin(Math.PI * 3 / 4) + y * Math.Cos(Math.PI * 3 / 4) ) / Math.Sqrt(2);
+                    }
+                x = x1;
+                y = y1;
+                pixels.SetPixel(x, y);
+                }
+            }
+        }
+    }
