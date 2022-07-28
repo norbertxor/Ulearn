@@ -14,7 +14,7 @@ namespace Fractals
             var image = new Bitmap(800, 800, PixelFormat.Format24bppRgb);
             using (var g = Graphics.FromImage(image))
             {
-                g.Clear(Color.Black);
+                g.Clear(Color.Blue);
             }
 
             DragonFractalTask.DrawDragonFractal(pixels, 100000, 123456);
